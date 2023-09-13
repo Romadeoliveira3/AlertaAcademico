@@ -7,7 +7,7 @@ class Fila:
 
     def desenfileirar(self):
         if not self.esta_vazia():
-            return self.items.pop(0)
+            return self.items.pop()
         else:
             return None
 
@@ -78,6 +78,22 @@ class ListaAulas:
             print(f'Nome da aula: {aula_atual.nome}, Faltas: {aula_atual.mostrar_faltas()}')
             aula_atual = aula_atual.next 
 
+    def ordenar_por_nome(self):
+        aulas = []
+        aula_atual = self.head
+        while aula_atual is not None:
+            aulas.append(aula_atual)
+            aula_atual = aula_atual.next
+        aulas.sort(key=lambda aula: aula.nome)
+        return aulas
+    
+    def buscar_aula_por_nome(self, nome):
+        aula_atual = self.head
+        while aula_atual is not None:
+            if aula_atual.nome == nome:
+                return aula_atual
+            aula_atual = aula_atual.next
+        return None
 
 class Pilha:
     def __init__(self):
@@ -87,7 +103,7 @@ class Pilha:
         self.items.append(item)
 
     def desempilhar(self):
-        if not self.esta_vazia():
+        if not this.esta_vazia():
             return self.items.pop()
         else:
             return None
@@ -114,10 +130,12 @@ while True:
     print("5. Adicionar Notificação")
     print("6. Remover Notificação")
     print("7. Gerar Notificações")
-    print("8. Sair")
-    
+    print("8. Ordenar Aulas por Nome") 
+    print("9. Buscar Aula por Nome")
+    print("10. Sair")
+
     opcao = input("Escolha uma opção: ")
-    
+
     if opcao == "1":
         nome = input("Nome da aula: ")
         carga_horaria = int(input("Carga horária: "))
@@ -148,7 +166,18 @@ while True:
     elif opcao == "7":
         gerarNotificacoes(fila_de_notificacoes)
     elif opcao == "8":
+        aulas_ordenadas = lista_de_aulas.ordenar_por_nome()
+        print("Aulas ordenadas por nome:")
+        for aula in aulas_ordenadas:
+            print(f'Nome da aula: {aula.nome}, Faltas: {aula.mostrar_faltas()}')
+    elif opcao == "9":
+        nome_aula = input("Digite o nome da aula que deseja buscar: ")
+        aula_encontrada = lista_de_aulas.buscar_aula_por_nome(nome_aula)
+        if aula_encontrada:
+            print(f'Aula encontrada: {aula_encontrada.nome}')
+        else:
+            print(f'Aula com o nome "{nome_aula}" não encontrada.')
+    elif opcao == "10":
         break
     else:
         print("Opção inválida. Escolha novamente.")
-

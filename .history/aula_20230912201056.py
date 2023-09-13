@@ -1,3 +1,41 @@
+class Fila:
+    def __init__(self):
+        self.items = []
+
+    def enfileirar(self, item):
+        self.items.append(item)
+
+    def desenfileirar(self):
+        if not self.esta_vazia():
+            return self.items.pop(0)
+        else:
+            return None
+
+    def esta_vazia(self):
+        return len(self.items) == 0
+
+    def tamanho(self):
+        return len(self.items)
+
+def gerarNotificacoes(fila):
+    print("Notificações:")
+    while not fila.esta_vazia():
+        notificacao = fila.desenfileirar()
+        print(" -", notificacao)
+    print("Todas as notificações foram processadas.")
+
+def adicionarNotificacao(fila, notificacao):
+    fila.enfileirar(notificacao)
+    print("Notificação adicionada:", notificacao)
+
+def removerNotificacao(fila):
+    notificacao_removida = fila.desenfileirar()
+    if notificacao_removida:
+        print("Notificação removida:", notificacao_removida)
+    else:
+        print("Não há notificações para remover.")
+
+
 class Aula:
     def __init__(self, nome, carga_horaria, aulas_semana, semanas=None, total_aulas=None, aulas_faltadas=0, percentual_faltas=0):
         self.nome = nome
@@ -40,6 +78,14 @@ class ListaAulas:
             print(f'Nome da aula: {aula_atual.nome}, Faltas: {aula_atual.mostrar_faltas()}')
             aula_atual = aula_atual.next 
 
+    def ordenar_por_nome(self):
+        aulas = []
+        aula_atual = self.head
+        while aula_atual is not None:
+            aulas.append(aula_atual)
+            aula_atual = aula_atual.next
+        aulas.sort(key=lambda aula: aula.nome)
+        return aulas
 
 class Pilha:
     def __init__(self):
@@ -66,16 +112,21 @@ def desfazerRegistro(pilha):
 # Criação da pilha
 pilha_de_acoes = Pilha()
 lista_de_aulas = ListaAulas()
+fila_de_notificacoes = Fila()
 
 while True:
     print("\n1. Adicionar Aula")
     print("2. Mostrar Aulas")
     print("3. Registrar Falta")
     print("4. Desfazer Registro")
-    print("5. Sair")
-    
+    print("5. Adicionar Notificação")
+    print("6. Remover Notificação")
+    print("7. Gerar Notificações")
+    print("8. Ordenar Aulas por Nome")  # Adicione uma nova opção de ordenação
+    print("9. Sair")
+
     opcao = input("Escolha uma opção: ")
-    
+
     if opcao == "1":
         nome = input("Nome da aula: ")
         carga_horaria = int(input("Carga horária: "))
@@ -99,7 +150,19 @@ while True:
         else:
             print("Não há ações para desfazer.")
     elif opcao == "5":
+        notificacao = input("Digite a notificação: ")
+        adicionarNotificacao(fila_de_notificacoes, notificacao)
+    elif opcao == "6":
+        removerNotificacao(fila_de_notificacoes)
+    elif opcao == "7":
+        gerarNotificacoes(fila_de_notificacoes)
+    elif opcao == "8":
+        aulas_ordenadas = lista_de_aulas.ordenar_por_nome()
+        print("Aulas ordenadas por nome:")
+        for aula in aulas_ordenadas:
+            print(f'Nome da aula: {aula.nome}, Faltas: {aula.mostrar_faltas()}')
+
+    elif opcao == "9":
         break
     else:
         print("Opção inválida. Escolha novamente.")
-

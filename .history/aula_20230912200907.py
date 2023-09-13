@@ -78,6 +78,14 @@ class ListaAulas:
             print(f'Nome da aula: {aula_atual.nome}, Faltas: {aula_atual.mostrar_faltas()}')
             aula_atual = aula_atual.next 
 
+    def ordenar_por_nome(self):
+        aulas = []
+        aula_atual = self.head
+        while aula_atual is not None:
+            aulas.append(aula_atual)
+            aula_atual = aula_atual.next
+        aulas.sort(key=lambda aula: aula.nome)
+        return aulas
 
 class Pilha:
     def __init__(self):
@@ -114,10 +122,11 @@ while True:
     print("5. Adicionar Notificação")
     print("6. Remover Notificação")
     print("7. Gerar Notificações")
-    print("8. Sair")
-    
+    print("8. Ordenar Aulas por Nome")  # Adicione uma nova opção de ordenação
+    print("9. Sair")
+
     opcao = input("Escolha uma opção: ")
-    
+
     if opcao == "1":
         nome = input("Nome da aula: ")
         carga_horaria = int(input("Carga horária: "))
@@ -148,7 +157,11 @@ while True:
     elif opcao == "7":
         gerarNotificacoes(fila_de_notificacoes)
     elif opcao == "8":
+        aulas_ordenadas = sorted(lista_de_aulas, key=lambda aula: aula.nome)
+        print("Aulas ordenadas por nome:")
+        for aula in aulas_ordenadas:
+            print(f'Nome da aula: {aula.nome}, Faltas: {aula.mostrar_faltas()}')
+    elif opcao == "9":
         break
     else:
         print("Opção inválida. Escolha novamente.")
-

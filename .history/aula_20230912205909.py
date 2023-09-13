@@ -1,94 +1,34 @@
 class Fila:
-    """
-    Classe que representa uma fila simples.
-
-    Attributes:
-        items (list): Uma lista para armazenar os itens na fila.
-
-    Methods:
-        enfileirar(item): Adiciona um item ao final da fila.
-        desenfileirar(): Remove e retorna o primeiro item da fila.
-        esta_vazia(): Verifica se a fila está vazia.
-        tamanho(): Retorna o número de itens na fila.
-    """
-
     def __init__(self):
-        """Inicializa a fila como uma lista vazia."""
         self.items = []
 
     def enfileirar(self, item):
-        """
-        Adiciona um item ao final da fila.
-
-        Args:
-            item: O item a ser enfileirado.
-        """
         self.items.append(item)
 
     def desenfileirar(self):
-        """
-        Remove e retorna o primeiro item da fila.
-
-        Returns:
-            O primeiro item da fila, ou None se a fila estiver vazia.
-        """
         if not self.esta_vazia():
             return self.items.pop(0)
         else:
             return None
 
     def esta_vazia(self):
-        """
-        Verifica se a fila está vazia.
-
-        Returns:
-            True se a fila estiver vazia, False caso contrário.
-        """
         return len(self.items) == 0
 
     def tamanho(self):
-        """
-        Retorna o número de itens na fila.
-
-        Returns:
-            O número de itens na fila.
-        """
         return len(self.items)
 
-
 def gerarNotificacoes(fila):
-    """
-    Gera notificações a partir de uma fila e exibe na tela.
-
-    Args:
-        fila: Uma instância da classe Fila contendo notificações.
-    """
     print("Notificações:")
     while not fila.esta_vazia():
         notificacao = fila.desenfileirar()
         print(" -", notificacao)
     print("Todas as notificações foram processadas.")
 
-
 def adicionarNotificacao(fila, notificacao):
-    """
-    Adiciona uma notificação à fila.
-
-    Args:
-        fila: Uma instância da classe Fila.
-        notificacao (str): A notificação a ser adicionada.
-    """
     fila.enfileirar(notificacao)
     print("Notificação adicionada:", notificacao)
 
-
 def removerNotificacao(fila):
-    """
-    Remove a primeira notificação da fila, se houver.
-
-    Args:
-        fila: Uma instância da classe Fila.
-    """
     notificacao_removida = fila.desenfileirar()
     if notificacao_removida:
         print("Notificação removida:", notificacao_removida)
@@ -97,36 +37,7 @@ def removerNotificacao(fila):
 
 
 class Aula:
-    """
-    Classe que representa uma aula em um curso.
-
-    Attributes:
-        nome (str): Nome da aula.
-        carga_horaria (int): Carga horária total da aula.
-        aulas_semana (int): Número de aulas por semana.
-        semanas (int): Número de semanas em que a aula ocorre.
-        total_aulas (int): Total de aulas no curso.
-        aulas_faltadas (int): Número de aulas faltadas.
-        percentual_faltas (float): Percentual de faltas em relação ao total de aulas.
-
-    Methods:
-        adicionar_falta(): Registra uma falta na aula e verifica a situação de faltas.
-        verificar_situacao(): Verifica a situação de faltas e exibe alertas se necessário.
-        mostrar_faltas(): Retorna o número de aulas faltadas.
-    """
     def __init__(self, nome, carga_horaria, aulas_semana, semanas=None, total_aulas=None, aulas_faltadas=0, percentual_faltas=0):
-        """
-        Inicializa uma instância da classe Aula.
-
-        Args:
-            nome (str): Nome da aula.
-            carga_horaria (int): Carga horária total da aula.
-            aulas_semana (int): Número de aulas por semana.
-            semanas (int, opcional): Número de semanas em que a aula ocorre. Calculado automaticamente se não fornecido.
-            total_aulas (int, opcional): Total de aulas no curso. Calculado automaticamente se não fornecido.
-            aulas_faltadas (int, opcional): Número de aulas faltadas.
-            percentual_faltas (float, opcional): Percentual de faltas em relação ao total de aulas.
-        """
         self.nome = nome
         self.carga_horaria = carga_horaria
         self.aulas_semana = aulas_semana
@@ -134,15 +45,13 @@ class Aula:
         self.total_aulas = total_aulas if total_aulas is not None else self.semanas * aulas_semana
         self.aulas_faltadas = aulas_faltadas
         self.percentual_faltas = percentual_faltas
-        self.next = None
+        self.next = None  
 
     def adicionar_falta(self):
-        """Registra uma falta na aula e verifica a situação de faltas."""
         self.aulas_faltadas += 1
         self.verificar_situacao()
 
     def verificar_situacao(self):
-        """Verifica a situação de faltas e exibe alertas se necessário."""
         percentual_faltas = (self.aulas_faltadas / self.total_aulas) * 100
         if percentual_faltas > 25:
             print(f"Alerta! Você ultrapassou o limite de faltas na disciplina {self.nome}. Percentual de faltas: {percentual_faltas:.2f}%")
@@ -151,54 +60,25 @@ class Aula:
             print(f"Você pode faltar mais {faltas_restantes:.0f} aulas na disciplina {self.nome} sem ser reprovado por falta.")
 
     def mostrar_faltas(self):
-        """Retorna o número de aulas faltadas."""
         return self.aulas_faltadas
 
 
 class ListaAulas:
-    """
-    Classe que representa uma lista encadeada de aulas.
-
-    Attributes:
-        head (Aula): O primeiro nó da lista.
-
-    Methods:
-        adicionar_aula(nome, carga_horaria, aulas_semana): Adiciona uma nova aula à lista.
-        mostrar_aulas(): Exibe as aulas da lista.
-        ordenar_por_nome(): Ordena as aulas por nome.
-        buscar_aula_por_nome(nome): Busca uma aula pelo nome.
-    """
     def __init__(self):
-        """Inicializa a lista de aulas como vazia."""
-        self.head = None
+        self.head = None 
 
     def adicionar_aula(self, nome, carga_horaria, aulas_semana):
-        """
-        Adiciona uma nova aula à lista.
-
-        Args:
-            nome (str): Nome da aula.
-            carga_horaria (int): Carga horária total da aula.
-            aulas_semana (int): Número de aulas por semana.
-        """
         nova_aula = Aula(nome, carga_horaria, aulas_semana)
-        nova_aula.next = self.head
-        self.head = nova_aula
+        nova_aula.next = self.head  
+        self.head = nova_aula  
 
     def mostrar_aulas(self):
-        """Exibe as aulas da lista."""
-        aula_atual = self.head
-        while aula_atual is not None:
+        aula_atual = self.head  
+        while aula_atual is not None:  
             print(f'Nome da aula: {aula_atual.nome}, Faltas: {aula_atual.mostrar_faltas()}')
-            aula_atual = aula_atual.next
+            aula_atual = aula_atual.next 
 
     def ordenar_por_nome(self):
-        """
-        Ordena as aulas por nome e retorna a lista ordenada.
-
-        Returns:
-            Uma lista de instâncias de Aula ordenada por nome.
-        """
         aulas = []
         aula_atual = self.head
         while aula_atual is not None:
@@ -206,17 +86,8 @@ class ListaAulas:
             aula_atual = aula_atual.next
         aulas.sort(key=lambda aula: aula.nome)
         return aulas
-
+    
     def buscar_aula_por_nome(self, nome):
-        """
-        Busca uma aula pelo nome e retorna a primeira correspondência encontrada.
-
-        Args:
-            nome (str): Nome da aula a ser buscada.
-
-        Returns:
-            Uma instância de Aula se encontrada, ou None se não encontrada.
-        """
         aula_atual = self.head
         while aula_atual is not None:
             if aula_atual.nome == nome:
@@ -224,79 +95,31 @@ class ListaAulas:
             aula_atual = aula_atual.next
         return None
 
-
 class Pilha:
-    """
-    Classe que representa uma pilha simples.
-
-    Attributes:
-        items (list): Uma lista para armazenar os itens na pilha.
-
-    Methods:
-        empilhar(item): Adiciona um item ao topo da pilha.
-        desempilhar(): Remove e retorna o item do topo da pilha.
-        esta_vazia(): Verifica se a pilha está vazia.
-    """
     def __init__(self):
-        """Inicializa a pilha como uma lista vazia."""
         self.items = []
 
     def empilhar(self, item):
-        """
-        Adiciona um item ao topo da pilha.
-
-        Args:
-            item: O item a ser empilhado.
-        """
         self.items.append(item)
 
     def desempilhar(self):
-        """
-        Remove e retorna o item do topo da pilha.
-
-        Returns:
-            O item do topo da pilha, ou None se a pilha estiver vazia.
-        """
         if not self.esta_vazia():
             return self.items.pop()
         else:
             return None
 
     def esta_vazia(self):
-        """
-        Verifica se a pilha está vazia.
-
-        Returns:
-            True se a pilha estiver vazia, False caso contrário.
-        """
         return len(self.items) == 0
 
-
+# Função registrarFalta deve estar fora da classe Pilha
 def registrarFalta(pilha, acao):
-    """
-    Registra uma ação na pilha.
-
-    Args:
-        pilha: Uma instância da classe Pilha.
-        acao (str): A ação a ser registrada na pilha.
-    """
     pilha.empilhar(acao)
 
-
+# Função desfazerRegistro deve estar fora da classe Pilha
 def desfazerRegistro(pilha):
-    """
-    Desfaz a última ação registrada na pilha.
-
-    Args:
-        pilha: Uma instância da classe Pilha.
-
-    Returns:
-        A ação desfeita, ou None se a pilha estiver vazia.
-    """
     return pilha.desempilhar()
 
-
-# Criação da pilha para registro de ações, lista de aulas e fila de notificações.
+# Criação da pilha
 pilha_de_acoes = Pilha()
 lista_de_aulas = ListaAulas()
 fila_de_notificacoes = Fila()
@@ -309,7 +132,7 @@ while True:
     print("5. Adicionar Notificação")
     print("6. Remover Notificação")
     print("7. Gerar Notificações")
-    print("8. Ordenar Aulas por Nome")
+    print("8. Ordenar Aulas por Nome") 
     print("9. Buscar Aula por Nome")
     print("10. Sair")
 
